@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart_multiple_pages/View/product_details_screen/product_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -36,33 +37,33 @@ class HomeScreen extends StatelessWidget {
     ];
 
     List NameAndDetails = [
-      {"name": "Regular fit slogan", "model": "LSR21"},
-      {"name": "Slim fit casual", "model": "LSR22"},
-      {"name": "Classic polo", "model": "LSR23"},
-      {"name": "V-neck tee", "model": "LSR24"},
-      {"name": "Graphic tee", "model": "LSR25"},
-      {"name": "Hooded sweatshirt", "model": "LSR26"},
-      {"name": "Crew neck sweater", "model": "LSR27"},
-      {"name": "Denim jacket", "model": "LSR28"},
-      {"name": "Leather jacket", "model": "LSR29"},
-      {"name": "Bomber jacket", "model": "LSR30"},
-      {"name": "Chinos", "model": "LSR31"},
-      {"name": "Slim fit jeans", "model": "LSR32"},
-      {"name": "Regular fit jeans", "model": "LSR33"},
-      {"name": "Cargo pants", "model": "LSR34"},
+      {"name": "Regular fit slogan", "model": "INR 1299"},
+      {"name": "Slim fit casual", "model": "INR 1099"},
+      {"name": "Classic polo", "model": "INR 1499"},
+      {"name": "V-neck tee", "model": "INR 540"},
+      {"name": "Graphic tee", "model": "INR 2100"},
+      {"name": "Hooded sweatshirt", "model": "INR 1690"},
+      {"name": "Crew neck sweater", "model": "INR 1390"},
+      {"name": "Denim jacket", "model": "INR 1320"},
+      {"name": "Leather jacket", "model": "INR 999"},
+      {"name": "Bomber jacket", "model": "INR 689"},
+      {"name": "Chinos", "model": "INR 920"},
+      {"name": "Slim fit jeans", "model": "INR 650"},
+      {"name": "Regular fit jeans", "model": "INR 1600"},
+      {"name": "Cargo pants", "model": "INR 1279"},
       {"name": "Shorts", "model": "LSR35"},
-      {"name": "Track pants", "model": "LSR36"},
-      {"name": "Formal shirt", "model": "LSR37"},
-      {"name": "Casual shirt", "model": "LSR38"},
-      {"name": "Polo shirt", "model": "LSR39"},
-      {"name": "Henley shirt", "model": "LSR40"},
-      {"name": "Blazer", "model": "LSR41"},
-      {"name": "Sweatpants", "model": "LSR42"},
-      {"name": "Pullover", "model": "LSR43"},
-      {"name": "Turtleneck sweater", "model": "LSR44"},
-      {"name": "Cardigan", "model": "LSR45"},
-      {"name": "Trench coat", "model": "LSR46"},
-      {"name": "Puffer jacket", "model": "LSR47"},
+      {"name": "Track pants", "model": "INR 1199"},
+      {"name": "Formal shirt", "model": "INR 1269"},
+      {"name": "Casual shirt", "model": "INR 1349"},
+      {"name": "Polo shirt", "model": "INR 1290"},
+      {"name": "Henley shirt", "model": "INR 1999"},
+      {"name": "Blazer", "model": "INR 1001"},
+      {"name": "Sweatpants", "model": "INR 454"},
+      {"name": "Pullover", "model": "INR 1299"},
+      {"name": "Turtleneck sweater", "model": "INR 1300"},
+      {"name": "Cardigan", "model": "INR 1349"},
+      {"name": "Trench coat", "model": "INR 1265"},
+      {"name": "Puffer jacket", "model": "INR 8999"},
     ];
 
     return MaterialApp(
@@ -231,10 +232,22 @@ class HomeScreen extends StatelessWidget {
                       childAspectRatio: 0.7),
                   itemBuilder: (context, index) => Stack(
                     children: [
-                      Container(
-                        child: Image.network(
-                          ImgUrls[index],
-                          fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductDetailsScreen(
+                                    imageUrl: ImgUrls[index],
+                                    name: NameAndDetails[index]["name"],
+                                    model: NameAndDetails[index]["model"])),
+                          );
+                        },
+                        child: Container(
+                          child: Image.network(
+                            ImgUrls[index],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Positioned(

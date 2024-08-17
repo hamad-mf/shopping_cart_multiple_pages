@@ -12,55 +12,61 @@ class GetStartedScreen extends StatelessWidget {
         home: SafeArea(
             child: Scaffold(
           backgroundColor: const Color.fromARGB(255, 240, 239, 238),
-          body: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        alignment: Alignment(1.10, 0.10),
-                        fit: BoxFit.contain,
-                        image: AssetImage("assets/images/no_bg.png"))),
-              ),
-              Column(
-                children: [
-                  Container(
-                    child: Text(
-                      "Define yourself in your unique way",
-                      style: GoogleFonts.dmSerifText(
-                        fontSize: 70,
-                        fontWeight: FontWeight.bold,
-                        height: 0.8,
+          body: Padding(
+            padding: const EdgeInsets.all(13),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          alignment: Alignment(1.10, 0.10),
+                          fit: BoxFit.contain,
+                          image: AssetImage("assets/images/no_bg.png"))),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Define yourself in your unique way",
+                        style: GoogleFonts.dmSerifText(
+                          fontSize: 68,
+                          fontWeight: FontWeight.bold,
+                          height: 0.8,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
                     ),
-                  ),
-                  const Spacer(),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          minimumSize: const Size(350, 70)),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text("Get Started"),
-                          Icon(Icons.arrow_forward)
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
-                      }),
-                  const SizedBox(
-                    height: 30,
-                  )
-                ],
-              ),
-            ],
+                    const Spacer(),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            minimumSize: const Size(350, 70)),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Get Started",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Icon(Icons.arrow_forward)
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()));
+                        }),
+                    const SizedBox(
+                      height: 30,
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         )));
   }
