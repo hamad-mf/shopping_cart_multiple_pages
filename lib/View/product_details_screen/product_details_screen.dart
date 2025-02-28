@@ -1,218 +1,228 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String model;
+import 'package:shopping_cart_multiple_pages/Controller/product_details_screen_controller.dart';
+
+class ProductDetailsScreen extends StatefulWidget {
+  final int productId;
 
   const ProductDetailsScreen({
     super.key,
-    required this.imageUrl,
-    required this.model,
-    required this.name,
+    required this.productId,
   });
 
   @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) async {
+        await context
+            .read<ProductDetailsScreenController>()
+            .getProductDetails(widget.productId);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // final ProductDetailsScreencontroller = context.watch<HomeScreenController>();
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "Details",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_circle_left_outlined,
-                size: 40,
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text(
+                "Details",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          actions: const [
-            Stack(
-              children: [
-                Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                Positioned(
-                  right: 0,
-                  top: 2,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 10,
-                    child: Text(
-                      "1",
-                      style: TextStyle(color: Colors.white),
-                    ),
+              leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_circle_left_outlined,
+                    size: 40,
                   ),
-                )
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 310,
-                  height: 400,
-                  decoration: const BoxDecoration(color: Colors.blue),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Row(
-                children: [
-                  Icon(
-                    Icons.star_rate_outlined,
-                    color: Color.fromARGB(255, 204, 185, 12),
-                  ),
-                  Text("4.5/5 (45 reviews)")
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                  "The name says it all, the right size slightly snugs the body leaving enough room for comfort in the sleeves and waist."),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                "Choose Size",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 205, 184, 184),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(1)),
-                    child: const Center(
-                        child: Text(
-                      "S",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 205, 184, 184),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(1)),
-                    child: const Center(
-                        child: Text(
-                      "M",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 205, 184, 184),
-                            width: 2),
-                        borderRadius: BorderRadius.circular(1)),
-                    child: const Center(
-                        child: Text(
-                      "L",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    )),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+              actions: const [
+                Stack(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Price",
-                          style: TextStyle(fontSize: 15),
+                    Icon(
+                      Icons.notifications_outlined,
+                      color: Colors.black,
+                      size: 35,
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 2,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 10,
+                        child: Text(
+                          "1",
+                          style: TextStyle(color: Colors.white),
                         ),
-                        Text(
-                          model,
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 27,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 180,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(
-                            Icons.local_mall_outlined,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            "Add to cart",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
-                        ],
                       ),
-                    ),
+                    )
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                SizedBox(
+                  width: 20,
+                ),
+              ],
+            ),
+            body: Consumer<ProductDetailsScreenController>(
+              builder: (context, productDetailsController, child) =>
+                  productDetailsController.isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          children: [
+                            Expanded(
+                                child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 25, vertical: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20),
+                                      alignment: Alignment.topRight,
+                                      height: 400,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  productDetailsController
+                                                      .product!.image
+                                                      .toString()))),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  offset: Offset(6, 10),
+                                                  blurRadius: 10,
+                                                  color: Colors.black
+                                                      .withOpacity(.5))
+                                            ]),
+                                        padding: EdgeInsets.all(10),
+                                        child: Icon(
+                                          Icons.favorite_outline,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      productDetailsController.product!.title
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      productDetailsController
+                                          .product!.rating!.rate
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.amber,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "${productDetailsController.product!.rating!.rate.toString()}${"(${productDetailsController.product!.rating!.count.toString()})"}",
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
+                            Divider(
+                              height: 1,
+                              thickness: 1,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Price",
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 16),
+                                      ),
+                                      Text(
+                                        "RS price",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(width: 50),
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //       builder: (context) =>
+                                        //           CartScreen(),
+                                        //     ));
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 20),
+                                        decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.local_mall_outlined,
+                                              color: Colors.white,
+                                              size: 25,
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              "Add to cart",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+            )));
   }
 }

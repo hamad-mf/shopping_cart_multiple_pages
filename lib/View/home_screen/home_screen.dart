@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_cart_multiple_pages/Controller/home_screen_controller.dart';
 import 'package:shopping_cart_multiple_pages/View/product_details_screen/product_details_screen.dart';
-import 'package:shopping_cart_multiple_pages/dummy_db.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -102,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Icon(
-                              Icons.filter_list,  
+                              Icons.filter_list,
                               color: Colors.white,
                               size: 30,
                             ),
@@ -125,7 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context
                                       .read<HomeScreenController>()
                                       .oncategorySelection(index);
-                                      
                                 },
                                 child: Container(
                                   height: 45,
@@ -177,20 +175,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductDetailsScreen(
-                                                      imageUrl: DummyDb
-                                                          .imgUrls[index],
-                                                      name: DummyDb
-                                                              .nameAnddetails[
-                                                          index]["name"],
-                                                      model: DummyDb
-                                                              .nameAnddetails[
-                                                          index]["model"])),
-                                        );
+                                        if (providerbj
+                                                .productlist[index].id !=
+                                            null) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetailsScreen(
+                                                      productId:
+                                                          providerbj
+                                                              .productlist[
+                                                                  index]
+                                                              .id!,
+                                                    )),
+                                          );
+                                        }
                                       },
                                       child: Container(
                                         child: Image.network(
